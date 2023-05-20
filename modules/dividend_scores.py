@@ -6,8 +6,6 @@ def yield_score(dividendYield):
     # 1st step : Compute the rate and its mean
     rateYield = dividendYield.pct_change(axis = 'columns').dropna(axis = 'columns')
     meanRateYield = rateYield.values[0].mean()
-    print(rateYield)
-    print(meanRateYield)
 
     # 2nd step: Calculate the bonus score
     if meanRateYield < 0:
@@ -22,15 +20,9 @@ def yield_score(dividendYield):
     penalty2 = sum([1 for dividend in dividendYield.values[0] if dividend < 0.04 ])
     adjustRatio = 6/len(dividendYield.dropna(axis = 'columns').values[0])
     Score_main = 8 - adjustRatio*(0.25*penalty1 + 0.75*penalty2)
-    print(penalty1)
-    print(penalty2)
-    print(adjustRatio)
     
     # 4th step: Calculate the total score
     return Score_main + Score_bonus
-
-
-
 
 
 def payout_ratio_score(payoutRatio):
@@ -42,8 +34,5 @@ def payout_ratio_score(payoutRatio):
     penalty2 = sum([1 for pr in payoutRatio.values[0] if pr > 0.75])
     adjustRatio = 6/len(payoutRatio.dropna(axis = 'columns').values[0])
     Score_main = 10 - adjustRatio*(penalty1 + 1.5*penalty2)
-    print(penalty1)
-    print(penalty2)
-    print(adjustRatio)
     
     return Score_main 
